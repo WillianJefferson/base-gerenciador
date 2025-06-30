@@ -35,3 +35,17 @@ exports.updateTask = async (req, res) => {
         res.status(400).json({message: 'Erro ao atualizar tarefa'});
     }
 };
+
+//deletar uma tarefa pelo ID
+exports.deleteTask = async (req, res) => {
+    try{
+        const task = await Task.findByIdAndDelete(req.params.id);
+
+        if(!task){
+            res.status(404).json({message: 'Tarefa não encontrada'});
+        }
+        res.json({message: 'Tarefa deletada com sucesso!'});
+    }catch(error){
+        res.status(500).json({message: 'Erro ao deletar tarefa'});
+    }
+};
